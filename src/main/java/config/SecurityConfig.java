@@ -35,7 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	            .authorizeRequests()
 	            	.antMatchers("/css/**", "/js/**").permitAll() // Allow static resources
 	                .antMatchers("/register/**").permitAll() // Allow public access to the register controller
-	                //.antMatchers("/admin/**").hasRole("ADMIN") // Restrict access to admin routes to ADMIN role
+	                //.antMatchers("/recruitment/recruitmentForm").hasRole("STUDENT")
+	                //.antMatchers("/recruitment/**").hasRole("SCHOOL")
 	                .anyRequest().authenticated() // Require authentication for all other routes
 	            .and()
 	            	.formLogin()

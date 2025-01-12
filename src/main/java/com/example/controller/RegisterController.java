@@ -18,9 +18,9 @@ import com.example.repository.UserDao;
 public class RegisterController {
 
 	@Autowired
-	private UserDao userDAO;
+	private UserDao userDAO; // field-based
 	@Autowired
-	private BCryptPasswordEncoder passwordEncoder; // Autowire the encoder
+	private BCryptPasswordEncoder passwordEncoder; // Autowire the encoder, field-based
 	
 	@GetMapping("/register")
 	public String register() {

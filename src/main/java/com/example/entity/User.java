@@ -1,5 +1,6 @@
 package com.example.entity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -29,6 +30,9 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Authority> authorities;
+    
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Recruitment> recruitments = new HashSet<>();
 
 	public User() {
 		super();
@@ -73,7 +77,12 @@ public class User {
 	public void setAuthorities(Set<Authority> authorities) {
 		this.authorities = authorities;
 	}
+	
+	public Set<Recruitment> getRecruitment() {
+		return recruitments;
+	}
 
-//generate default constructor    
-// generate Getters and Setters
+	public void setRecruitment(Set<Recruitment> recruitments) {
+		this.recruitments = recruitments;
+	}
 }

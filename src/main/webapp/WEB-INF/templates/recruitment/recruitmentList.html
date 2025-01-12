@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruitment List</title>
+</head>
+<body>
+    <h1>Recruitments</h1>
+    <!--  <a th:href="@{/recruitment/recruitmentForm}">Add New Recruitment</a>-->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Class</th>
+                <th>Phone Number</th>
+                <th>Parent Phone Number</th>
+                <th>Reason For Applying</th>
+                <th>Application Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="recruitmentForm : ${recruitmentForms}">
+	            <td th:text="${recruitmentForm.user.fullname}"></td>
+	            <td th:text="${recruitmentForm.user.email}"></td>
+	            <td th:text="${recruitmentForm.studentClass}"></td>
+	            <td th:text="${recruitmentForm.phoneNumber}"></td>
+	            <td th:text="${recruitmentForm.parentPhoneNumber}"></td>
+	            <td th:text="${recruitmentForm.reasonForApply}"></td>
+	            <td>
+		            <form th:action="@{/recruitment/updateStatus}" method="post">
+		                <input type="hidden" name="id" th:value="${recruitmentForm.id}">
+		                <select name="status">
+		                    <option th:value="Pending" th:selected="${recruitmentForm.status == 'Pending'}">Pending</option>
+		                    <option th:value="Approved" th:selected="${recruitmentForm.status == 'Approved'}">Approved</option>
+		                    <option th:value="Rejected" th:selected="${recruitmentForm.status == 'Rejected'}">Rejected</option>
+		                </select>
+		                <button type="submit">Update</button>
+		            </form>
+		        </td>
+	            <td>
+	            	<!--<a th:href="@{/recruitment/edit/{id}(id=${recruitmentForm.id})}">
+	                    <button type="button">Edit</button>
+	                </a>-->
+	                <form th:action="@{/recruitment/delete/{id}(id=${recruitmentForm.id})}" method="post">
+	                    <button type="submit">Delete</button>
+	                </form>
+	            </td>
+	        </tr>
+        </tbody>
+    </table>
+</body>
+</html>
+
+

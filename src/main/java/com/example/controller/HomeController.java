@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,10 +39,15 @@ public class HomeController {
             email = principal.toString();
         }
     	
-        // Fetch user from database (replace with logged-in user logic)
+        // Fetch user from database 
         User user = userDao.findByEmail(email);
+        
         if (user != null) {
+        	Set<Authority> authorities = user.getAuthorities();
             model.addAttribute("message", "Welcome, " + user.getFullname() + "!");
+            for (Authority authority : authorities) {
+            	model.addAttribute("user_authority", authority.getAuthority()); // To differentiate the provided options
+            }
         } else {
             model.addAttribute("message", "Welcome, Guest!");
         }

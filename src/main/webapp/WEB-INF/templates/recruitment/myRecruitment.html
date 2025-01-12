@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Recruitment Forms</title>
+</head>
+<body>
+    <h1>My Recruitment Applications</h1>
+
+    <!-- Message -->
+    <h3 th:text="${message}"></h3>
+
+    <!-- Message and list of forms if submissions exist -->
+    <div>
+        <div th:each="recruitmentForm : ${myRecruitmentForm}" style="border: 1px solid #ccc; padding: 10px; margin-bottom: 15px;">
+        	<p><strong>Full Name:</strong> <span th:text="${recruitmentForm.user.fullname}"></span></p>
+            <p><strong>Class:</strong> <span th:text="${recruitmentForm.studentClass}"></span></p>
+            <p><strong>Phone Number:</strong> <span th:text="${recruitmentForm.phoneNumber}"></span></p>
+            <p><strong>Parent's Phone Number:</strong> <span th:text="${recruitmentForm.parentPhoneNumber ?: 'N/A'}"></span></p>
+            <p><strong>Reason for Applying:</strong> <span th:text="${recruitmentForm.reasonForApply}"></span></p>
+            <p><strong>Status:</strong><span th:text="${recruitmentForm.status}"></span></p>
+            
+            <div>
+                <a th:href="@{/recruitment/edit/{id}(id=${recruitmentForm.id})}">
+                    <button type="button">Edit</button>
+                </a>
+                <form th:action="@{/recruitment/deleteByStudent/{id}(id=${recruitmentForm.id})}" method="post" style="display: inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

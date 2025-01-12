@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruitment Form</title>
+</head>
+<body>
+    <h1>Recruitment Form</h1>
+
+    <!-- Display user information -->
+    <h3>Full Name: <span th:text="${fullname}"></span></h3>
+    <h3>Email: <span th:text="${email}"></span></h3>
+
+    <!-- Recruitment form -->
+    <form th:action="@{/recruitment/submitForm}" method="post">
+        <label for="class">Class:</label>
+        <input type="text" id="class" name="class" required><br><br>
+
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="text" id="phoneNumber" name="phoneNumber" required><br><br>
+
+        <label for="parentPhoneNumber">Parent's Phone Number (Optional):</label>
+        <input type="text" id="parentPhoneNumber" name="parentPhoneNumber"><br><br>
+
+        <label for="reasonForApply">Reason for Applying (50 words or fewer):</label><br>
+        <textarea id="reasonForApply" name="reasonForApply" rows="4" cols="50" required></textarea><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+

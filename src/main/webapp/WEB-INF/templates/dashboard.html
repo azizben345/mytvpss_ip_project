@@ -5,5 +5,45 @@
 </head>
 <body>
     <h1 th:text="${message}"></h1>
+
+    <!-- Authority-based functionality -->
+    <div th:if="${user_authority == 'ROLE_STATE'}">
+        <h2>State Admin Dashboard</h2>
+        <a href="">Function</a><br>
+        <a href="">Function</a><br>
+        <a href="register">Register New User</a><br>
+        <br><a href="logout">Logout</a>
+    </div>
+
+    <div th:if="${user_authority == 'ROLE_DISTRICT'}">
+        <h2>District Admin Dashboard</h2>
+        <a href="">Function</a><br>
+        <a href="">Function</a><br>
+        <br><a href="logout">Logout</a>
+    </div>
+
+    <div th:if="${user_authority == 'ROLE_SCHOOL'}">
+        <h2>Teacher Dashboard</h2>
+        <a href="recruitment/recruitmentList">Check Recruitment Form List</a><br>
+        <a href="">View Event</a><br>
+        <a href="">Function</a><br>
+        <a href="">Function</a><br>
+        <br><a href="logout">Logout</a>
+    </div>
+
+    <div th:if="${user_authority == 'ROLE_STUDENT'}">
+        <h2>Student Dashboard</h2>
+        <a href="recruitment/recruitmentForm">Fill In Recruitment Form</a><br>
+        <a href="recruitment/myRecruitments">Check My Recruitment Form</a><br>
+        <a href="">View Event</a><br>
+        <br><a href="logout">Logout</a>
+    </div>
+
+    <!-- Default message if authority is unrecognized -->
+    <div th:if="${user_authority != 'ROLE_STATE' && user_authority != 'ROLE_DISTRICT' && user_authority != 'ROLE_SCHOOL' && user_authority != 'ROLE_STUDENT'}">
+        <h2>Access Denied</h2>
+        <p>Your role does not have access to this dashboard.</p>
+    </div>
 </body>
 </html>
+
