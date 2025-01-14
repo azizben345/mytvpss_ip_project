@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Event</title>
+</head>
+<body>
+    <h1>Edit Event</h1>
+    <form th:action="@{/event/edit/{id}(id=${event.id})}" th:object="${event}" method="post">
+        <label for="title">Name:</label>
+        <input type="text" id="title" name="title" th:value="*{title}" required><br>
+
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description" th:value="*{description}" required><br>
+
+        <label for="image">Image :</label>
+        <input type="text" id="image" name="image" th:value="*{image}" required><br>
+
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate" th:value="*{startDate}" required><br>
+        
+         <label for="endDate">End Date:</label>
+         <input type="date" id="endDate" name="endDate" th:value="*{endDate}" required><br>
+		
+		<label for="status">Event Status:</label>
+        <select id="status" name="status" th:value="*{status}" required>
+            <option value="In Progress" th:text="#{In Progress}">In Progress</option>
+            <option value="Event Have Not Start" th:text="#{Event Have Not Start}">Event Have Not Start</option>
+            <option value="Event Ended" th:text="#{Event Ended}">Event Ended</option>
+        </select><br>
+		
+		<!-- <label for="eventDuration">Event Participation:</label>
+		<input type="text" id="participation" name="participation" th:value="*{participation}" required><br> -->
+		
+        <button type="submit">Update</button>
+        <a th:href="@{/event/view}">Cancel</a>
+    </form>
+</body>
+</html>

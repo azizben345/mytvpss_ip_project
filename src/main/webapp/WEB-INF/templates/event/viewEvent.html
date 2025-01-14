@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>View Event</title>
+    <style>
+        table { width: 100%; border-collapse: collapse; border: 1px solid #ddd; }
+        th, td { padding: 12px; text-align: left; border: 1px solid #ddd; background: white; }
+        thead { background: #f5f5f5; }
+        .event-table { background: white; border-radius: 8px; padding: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border: 1px solid #ddd; }
+        .status-green { background: #d4edda; color: #155724; padding: 5px 10px; border-radius: 15px; }
+        .status-blue { background: #cce5ff; color: #004085; padding: 5px 10px; border-radius: 15px; }
+         .status-light-red {color: lightcoral;font-weight: bold;}
+        .apply-btn { background: #007bff; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; }
+        body { margin: 0; font-family: Arial, sans-serif; background: #e6f0ff; }
+        .topbar { background: #003366; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .content { padding: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .year-select { padding: 5px; border-radius: 4px; }
+        .search-bar { width: 200px; padding: 8px; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 15px; }
+        .controls { display: flex; gap: 15px; margin-bottom: 15px; align-items: center; }
+        .pagination { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+    </style>
+</head>
+<body>
+    <div class="topbar">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <button style="background: none; border: none; color: white;">☰</button>
+            <span>TV PSS</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <span>🔔</span>
+            <!-- <span th:text="${users.username{id}">Test:</span> -->
+        </div>
+    </div>
+    
+    <div class="content">
+        <div class="header">
+            <h2>View Event- Admin Page</h2>
+            <div>
+               <!--  Year 
+                <select class="year-select" th:field="*{event}">
+                    <option th:each="year : ${years}" th:value="${year}" th:text="${year}">2024</option>
+                </select> -->
+            </div>
+        </div>
+        
+        <div class="event-table">
+           <!--  <div class="controls">
+                <input type="search" placeholder="Search Competition" class="search-bar" th:field="*{searchTerm}">
+                <span>All</span>
+                <span>View in Sheet</span>
+                <div class="pagination">
+                    <span>◀</span>
+                    <span>Page</span>
+                    <span th:text="${currentPage} + ' of ' + ${totalPages}">1 of 20</span>
+                    <span>▶</span>
+                </div>
+            </div> -->
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Image</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Event Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="event, iterStat : ${event}">
+                        <td th:text="${iterStat.index + 1}">1</td>
+                        <td th:text="${event.title}"></td>
+                        <td th:text="${event.description}"></td>
+                        <td th:text="${event.image}"></td>
+                        <td>
+                            <span th:text="${event.startDate}"></span><br>
+                
+                        </td>
+                        <td>
+                            <span th:text="${event.endDate}"></span><br>
+                           
+                        </td>
+                        <td>
+                            <span th:class="${event.status == 'In Progress' ? 'status-green' : (event.status == 'Event Have Not Start' ? 'status-blue' : 'status-light-red')}" 
+                                  th:text="${event.status}"></span>
+                        </td>
+                        
+                         <td>
+                        	<a th:href="@{/event/edit/{id}(id=${event.id})}">Edit</a>
+                        	<a th:href="@{/event/delete/{id}(id=${event.id})}">Delete</a>
+                        </td>
+                        
+                        <!-- <td>
+                            <button class="apply-btn" th:onclick="'apply(' + ${event.id} + ')'">Participation List</button>
+                        </td> -->
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>
+         <td>
+                <a th:href="@{/event/create}">Add Event</a>
+            </td>
+    </div>
+    
+</body>
+</html>
