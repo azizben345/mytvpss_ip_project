@@ -9,17 +9,15 @@
     <!-- Authority-based functionality -->
     <div th:if="${user_authority == 'ROLE_STATE'}">
         <h2>State Admin Dashboard</h2>
-        <a href="">Function</a><br>
-        <a href="">Function</a><br>
-        <a href="register">Register New User</a><br>
-        <br><a href="logout">Logout</a>
+        <a href="admin/register">Register New User</a><br>
+        <a href="admin/viewAllUsers">Manage User</a><br>
     </div>
 
     <div th:if="${user_authority == 'ROLE_DISTRICT'}">
         <h2>District Admin Dashboard</h2>
         <a href="">Function</a><br>
         <a href="">Function</a><br>
-        <br><a href="logout">Logout</a>
+        
     </div>
 
     <div th:if="${user_authority == 'ROLE_SCHOOL'}">
@@ -27,21 +25,25 @@
         <a href="recruitment/recruitmentList">Check Recruitment Form List</a><br>
         <a href="event/admin/view">View Event</a><br>
         <a href="event/admin/create">Create Event</a><br>
-        <br><a href="logout">Logout</a>
+        
     </div>
 
     <div th:if="${user_authority == 'ROLE_STUDENT'}">
         <h2>Student Dashboard</h2>
         <a href="recruitment/recruitmentForm">Fill In Recruitment Form</a><br>
-        <a href="recruitment/myRecruitments">Check My Recruitment Form</a><br>
+        <a href="recruitment/myRecruitment">Check My Recruitment Form</a><br>
         <a href="event/view">View Event</a><br>
-        <br><a href="logout">Logout</a>
+        
+    </div>
+    <div>
+    	<a href="viewProfile">View Profile</a><br>
+    	<a href="out">Logout</a>
     </div>
 
     <!-- Default message if authority is unrecognized -->
     <div th:if="${user_authority != 'ROLE_STATE' && user_authority != 'ROLE_DISTRICT' && user_authority != 'ROLE_SCHOOL' && user_authority != 'ROLE_STUDENT'}">
         <h2>Access Denied</h2>
-        <p>Your role does not have access to this dashboard.</p>
+        <p>Your account does not have access to this system. Please contact your teacher/supervisor to resolve the issue.</p>
     </div>
 </body>
 </html>
