@@ -1,5 +1,7 @@
 package com.example.repository;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -23,5 +25,28 @@ public class UserDao {
     public User findByEmail(String email) {
         Session session = sessionFactory.getCurrentSession();
         return session.get(User.class, email);
+    }
+    
+    @SuppressWarnings("unchecked")
+    public List<User> findAll() { // 1 - get all
+        try (Session session = sessionFactory.openSession()) {
+        	return session.createQuery("from User").getResultList();
+        }
+    }
+    
+    public void delete(String email) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            
+            session.createNativeQuery("DELETE FROM authorities WHERE email = :email")
+            .setParameter("email", email)
+            .executeUpdate();
+            
+            session.createNativeQuery("DELETE FROM users WHERE email = :email")
+                .setParameter("email", email)
+                .executeUpdate();
+            
+            session.getTransaction().commit();
+        }
     }
 }
