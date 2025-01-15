@@ -2,8 +2,112 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Create Event</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #003366;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            font-size: 16px;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        input[type="text"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        
+        button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        
+        .cancel-link {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 16px;
+        }
+        
+        .cancel-link a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        
+        .cancel-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .topbar {
+            background: #003366;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .topbar button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+        }
+        a.logout {color: white;text-decoration: none;}
+    </style>
+    
 </head>
 <body>
+<div class="container">
     <h1>Create New Event</h1>
     <form th:action="@{/event}" th:object="${event}" method="post">
         <label for="title">Name:</label>
@@ -29,9 +133,9 @@
             <option value="Event Ended" th:text="#{Event Ended}">Event Ended</option>
         </select><br>
 		
-
         <button type="submit">Save</button>
         <a th:href="@{/event}">Cancel</a>
     </form>
+</div>
 </body>
 </html>
