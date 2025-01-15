@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.entity.*;
 //import com.example.repository.EventDao;
@@ -33,7 +34,7 @@ public class RecruitmentController {
     
     //Controller:
     
-    @GetMapping("/myRecruitments")
+    @GetMapping("/myRecruitment")
     public String getMyRecruitments(Model model) {
     	
     	User loggedInUser = fetchLoggedInUser();
@@ -61,9 +62,17 @@ public class RecruitmentController {
     
     // Show form for new recruitment
     @GetMapping("/recruitmentForm")
-    public String recruitmentForm(Model model) {
+    public String recruitmentForm(Model model, RedirectAttributes redirectAttributes) {
 
     	User loggedInUser = fetchLoggedInUser();
+    	
+    	// Check if the logged-in user has already submitted a recruitment form
+        Recruitment existingRecruitment = recruitmentDao.findByUser(loggedInUser);
+        if (existingRecruitment != null) {
+            // Add a flash attribute to notify the user
+            redirectAttributes.addFlashAttribute("errorMessage", "You can only submit one form at a time.");
+            return "redirect:/recruitment/myRecruitment"; // Redirect to a relevant page
+        }
 
         // Add recruitment object and user details to the model
         model.addAttribute("email", loggedInUser.getEmail());
@@ -71,7 +80,6 @@ public class RecruitmentController {
 
         return "recruitment/recruitmentForm"; // Render the recruitment form
     }
-
     // Handle form submission for new recruitment
     @PostMapping("/submitForm")
     public String recruitmentForm(
@@ -98,7 +106,7 @@ public class RecruitmentController {
         //model.addAttribute("success", "Your application has been successfully submitted!");
         return "recruitment/myRecruitment"; 
     }
-    
+
     @PostMapping("/updateStatus")
     public String updateRecruitmentStatus(@RequestParam("id") Long id, @RequestParam("status") String status) {
         Recruitment recruitment = recruitmentDao.findById(id);
@@ -111,20 +119,26 @@ public class RecruitmentController {
 
     // Show form for editing recruitment
     @GetMapping("/edit/{id}")
-    public String showEditRecruitment(@PathVariable Long id, Model model) {
+    public String showEditRecruitment(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
         Recruitment recruitment = recruitmentDao.findById(id);
-        if (recruitment != null) {
-        	//User loggedInUser = fetchLoggedInUser();
+        // Check the existence and status of the recruitment form
+        if (recruitment != null && !(recruitment.getStatus().equals("Approved")) ) {
             model.addAttribute("recruitment", recruitment);
-            //model.addAttribute("email", loggedInUser.getEmail());
-            //model.addAttribute("fullname", loggedInUser.getFullname());
             return "recruitment/recruitmentUpdate"; 
         }
+        redirectAttributes.addFlashAttribute("errorMessage", "Unable to edit form");
         return "redirect:/recruitment/myRecruitment"; // Redirect if not found
     }
     @PostMapping("/edit")
     public String editRecruitment(@ModelAttribute Recruitment recruitment) {
-        recruitmentDao.save(recruitment); // Call the update method 
+    	// Fetch the existing recruitment from the database
+        Recruitment existingRecruitment = recruitmentDao.findById(recruitment.getId());
+        if (existingRecruitment != null) {
+            // Preserve the original status
+            recruitment.setStatus(existingRecruitment.getStatus());
+	        // Save the updated recruitment object
+	    	recruitmentDao.save(recruitment);  
+        }
         return "redirect:/recruitment/myRecruitment";
     }
 
@@ -136,8 +150,15 @@ public class RecruitmentController {
     }
     
     @PostMapping("/deleteByStudent/{id}")
-    public String deleteRecruitmentStudent(@PathVariable Long id) {
-        recruitmentDao.deleteById(id);
+    public String deleteRecruitmentStudent(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
+    	Recruitment recruitment = recruitmentDao.findById(id);
+        // Check the existence and status of the recruitment form
+        if (recruitment != null && !(recruitment.getStatus().equals("Approved")) ) {
+            //model.addAttribute("recruitment", recruitment);
+            recruitmentDao.deleteById(id); 
+        }
+        
+        redirectAttributes.addFlashAttribute("errorMessage", "Unable to delete form: Form is already approved");
         return "redirect:/recruitment/myRecruitment";
     }
     
