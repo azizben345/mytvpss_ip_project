@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Profile</title>
+</head>
+<body>
+    <h1>User Profile</h1>
+
+    <table border="1">
+        <tr>
+            <th>Email</th>
+            <td th:text="${user.email}"></td>
+        </tr>
+        <tr>
+            <th>Full Name</th>
+            <td th:text="${user.fullname}"></td>
+        </tr>
+        <tr>
+            <th>Role</th>
+            <td th:text="${role}"></td>
+        </tr>
+    </table>
+    <br><a href="changePassword">Change Password</a>
+</body>
+</html>
