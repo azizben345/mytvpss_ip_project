@@ -3,26 +3,135 @@
 <head>
     <title>View Event</title>
     <style>
-        table { width: 100%; border-collapse: collapse; border: 1px solid #ddd; }
-        th, td { padding: 12px; text-align: left; border: 1px solid #ddd; background: white; }
-        thead { background: #f5f5f5; }
-        .event-table { background: white; border-radius: 8px; padding: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border: 1px solid #ddd; }
-        .status-green { background: #d4edda; color: #155724; padding: 5px 10px; border-radius: 15px; }
-        .status-blue { background: #cce5ff; color: #004085; padding: 5px 10px; border-radius: 15px; }
-         .status-light-red {color: lightcoral;font-weight: bold;}
-        .apply-btn { background: #007bff; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; }
-        body { margin: 0; font-family: Arial, sans-serif; background: #e6f0ff; }
-        .topbar { background: #003366; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
-        .content { padding: 20px; }
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .year-select { padding: 5px; border-radius: 4px; }
-        .search-bar { width: 250px; padding: 8px; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 15px; }
-		.controls { display: flex; gap: 15px; margin-bottom: 15px; align-items: center; }
-		.pagination { display: flex; align-items: center; gap: 10px; margin-left: auto; }
-		a.logout { color: white; text-decoration: none; transition: all 0.3s ease; }
-		a.logout:hover { color: #f39c12; text-decoration: underline; }
-		.topbar button:hover { cursor: pointer; color: #f39c12; }
-		.topbar span:hover { color: #f39c12; cursor: pointer; }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #e6f0ff;
+        }
+
+        .topbar {
+            background: #003366;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .event-table {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+            background: white;
+        }
+
+        thead {
+            background: #f5f5f5;
+        }
+
+        .status-green {
+            background: #d4edda;
+            color: #155724;
+            padding: 5px 10px;
+            border-radius: 15px;
+        }
+
+        .status-blue {
+            background: #cce5ff;
+            color: #004085;
+            padding: 5px 10px;
+            border-radius: 15px;
+        }
+
+        .status-light-red {
+            color: lightcoral;
+            font-weight: bold;
+        }
+
+        .apply-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .pagination {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: auto;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+
+        .search-bar {
+            width: 200px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .add-event-btn {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .add-event-btn:hover {
+            background: #0056b3;
+        }
+
+        .back-dashboard {
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        .back-dashboard a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .back-dashboard a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -42,8 +151,8 @@
         </div>
         <div style="display: flex; align-items: center; gap: 15px;">
             <span>🔔</span>
-              <!-- Logout -->
-           <br><a th:href="@{/out}"  class="logout">Logout</a>
+            <!-- Logout -->
+            <br><a th:href="@{/out}" class = "logout">Logout</a>
         </div>
     </div>
     
@@ -79,7 +188,6 @@
                         <th>Name</th>
                         <th>Description</th>
                         <th>Image</th>
-                        <th>YouTube Link</th>
                         <th>Start</th>
                         <th>End</th>
                         <th>Event Status</th>
@@ -90,18 +198,7 @@
                         <td th:text="${iterStat.index + 1}">1</td>
                         <td th:text="${event.title}"></td>
                         <td th:text="${event.description}"></td>
-                        <!-- <td th:text="${event.image}"></td> -->
-                        <!-- Display Image from URL -->
-				        <td>
-                            <div th:if="${#strings.contains(event.image, 'youtube')}">
-                                <iframe width="300" height="200" th:src="'https://www.youtube.com/embed/' + ${#strings.substringAfter(event.image, 'v=')}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                            </div>
-                            <div th:if="${#strings.contains(event.image, 'http')}">
-                                <img th:src="${event.image}" alt="Event Image" style="max-width: 300px; height: auto;">
-                            </div>
-                        </td>
-                        <!-- YOUTUBE LINK -->
-                        <td><a th:href="${event.image}" target="_blank">View YouTube</a></td>
+                        <td th:text="${event.image}"></td>
                         <td>
                             <span th:text="${event.startDate}"></span><br>
                 
@@ -121,5 +218,6 @@
             </table>            
         </div>
     </div>   
+    <a href="dasboard">Back to Dashboard</a>
 </body>
 </html>

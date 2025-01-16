@@ -2,6 +2,79 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>User Profile</title>
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom right, #1e3c72, #2a5298);
+            background-size: cover;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Page Title */
+        h1 {
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Table Styling */
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black for contrast */
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        th {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #FFD700; /* Gold for table headers */
+        }
+
+        td {
+            color: white;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Link Styling */
+        a {
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 15px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        a:hover {
+            text-decoration: underline;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Center Content */
+        .content {
+            text-align: center;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
     <h1>User Profile</h1>
@@ -20,6 +93,7 @@
             <td th:text="${role}"></td>
         </tr>
     </table>
-    <br><a href="changePassword">Change Password</a>
+    <br><a href="changePassword">Change Password</a><br>
+    <a href="dasboard">Back to Dashboard</a>
 </body>
 </html>

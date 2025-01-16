@@ -104,7 +104,7 @@ public class RecruitmentController {
         recruitmentDao.save(recruitment);
 
         //model.addAttribute("success", "Your application has been successfully submitted!");
-        return "recruitment/myRecruitment"; 
+        return "redirect:/recruitment/myRecruitment"; 
     }
 
     @PostMapping("/updateStatus")
@@ -156,9 +156,9 @@ public class RecruitmentController {
         if (recruitment != null && !(recruitment.getStatus().equals("Approved")) ) {
             //model.addAttribute("recruitment", recruitment);
             recruitmentDao.deleteById(id); 
+        } else {
+        	redirectAttributes.addFlashAttribute("errorMessage", "Unable to delete form: Form is already approved");
         }
-        
-        redirectAttributes.addFlashAttribute("errorMessage", "Unable to delete form: Form is already approved");
         return "redirect:/recruitment/myRecruitment";
     }
     

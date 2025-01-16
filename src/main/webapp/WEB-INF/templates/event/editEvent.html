@@ -87,7 +87,7 @@
             text-decoration: underline;
         }
         
-.topbar {
+        .topbar {
             background: #003366;
             color: white;
             padding: 15px;
@@ -102,53 +102,10 @@
             color: white;
             font-size: 18px;
         }
-
-        .topbar .topbar-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .topbar .topbar-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .topbar .topbar-left span,
-        .topbar .topbar-right span {
-            font-size: 16px;
-        }
-
-        .topbar .topbar-left button {
-            font-size: 22px;
-            color: white;
-        }
-
-        a.logout {
-            color: white;
-            text-decoration: none;
-        }    </style>
+        a.logout {color: white;text-decoration: none;}
+    </style>
 </head>
 <body>
-<div class="topbar">
-        <div class="topbar-left">
-            <div class="topbar-left">
-            <button style="background: none; border: none; color: white;">☰</button>
-            <a th:href="@{/event/admin/view}" style="color: white; font-size: 16px;">TV PSS</a>
-        </div>
-        </div>
-        <div class="topbar-right">
-            <span>🔔</span>
-        </div>
-         <div style="display: flex; align-items: center; gap: 15px;">
-            <span>🔔</span>
-              <!-- Logout -->
-           <br><a th:href="@{/out}"  class="logout">Logout</a>
-        </div>
-    </div>
-    
-<div class="container">
     <h1>Edit Event</h1>
     <form th:action="@{/event/admin/edit/{id}(id=${event.id})}" th:object="${event}" method="post">
         <label for="title">Name:</label>
@@ -157,28 +114,27 @@
         <label for="description">Description:</label>
         <input type="text" id="description" name="description" th:value="*{description}" required><br>
 
-        <label for="image">Image Link :</label>
+        <label for="image">Image :</label>
         <input type="text" id="image" name="image" th:value="*{image}" required><br>
-        
-        <label for="youtubeLink">YouTube Link:</label>
-        <input type="text" id="youtubeLink" name="youtubeLink" th:value="*{youtubeLink}" required><br>
 
         <label for="startDate">Start Date:</label>
         <input type="date" id="startDate" name="startDate" th:value="*{startDate}" required><br>
         
-        <label for="endDate">End Date:</label>
-        <input type="date" id="endDate" name="endDate" th:value="*{endDate}" required><br>
-        
-        <label for="status">Event Status:</label>
+         <label for="endDate">End Date:</label>
+         <input type="date" id="endDate" name="endDate" th:value="*{endDate}" required><br>
+		
+		<label for="status">Event Status:</label>
         <select id="status" name="status" th:value="*{status}" required>
             <option value="In Progress" th:text="#{In Progress}">In Progress</option>
             <option value="Event Have Not Start" th:text="#{Event Have Not Start}">Event Have Not Start</option>
             <option value="Event Ended" th:text="#{Event Ended}">Event Ended</option>
         </select><br>
-
+		
+		<!-- <label for="eventDuration">Event Participation:</label>
+		<input type="text" id="participation" name="participation" th:value="*{participation}" required><br> -->
+		
         <button type="submit">Update</button>
-        <a th:href="@{/event/admin/view}" class="cancel-link">Cancel</a>
+        <a th:href="@{/event/admin/view}">Cancel</a>
     </form>
-</div>
 </body>
 </html>

@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -33,19 +33,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	    protected void configure(HttpSecurity http) throws Exception {
 	        http
 	            .authorizeRequests()
-	            	.antMatchers("/css/**", "/js/**").permitAll() // Allow static resources
-	                .antMatchers("/register/**").permitAll() // Allow public access to the register controller
-	                //.antMatchers("/recruitment/recruitmentForm").hasRole("STUDENT")
-	                //.antMatchers("/recruitment/**").hasRole("SCHOOL")
+	            	.antMatchers("/css/**").permitAll() // Allow static resources
+	                .antMatchers("/recruitment/**").hasAnyRole("SCHOOL","STUDENT")
+	                .antMatchers("/admin/**","/stateProgram/**").hasRole("STATE")
+	                .antMatchers("/schoolProgram/**").hasRole("SCHOOL")
+	                .antMatchers("/districtProgram/**").hasRole("DISTRICT")
 	                .anyRequest().authenticated() // Require authentication for all other routes
 	            .and()
 	            	.formLogin()
-	                //.loginPage("/login") // Custom login page
-	            	//.usernameParameter("email")
+	                .loginPage("/login") // Custom login page
+	            	.usernameParameter("email")
 	                .defaultSuccessUrl("/dashboard", true) // Redirect to home after successful login
+	                .failureUrl("/login?error=true") // Redirect to login page with error
 	                .permitAll() // Allow everyone to access the login page
 	            .and()
 	            	.logout()
+	            	.logoutUrl("/logout") // Default logout URL (optional to customize)
+	                .logoutSuccessUrl("/login?logout=true") // Redirect after successful logout
+	                .invalidateHttpSession(true) // Invalidate session
 	                .permitAll(); // Allow everyone to access logout functionality
 	    }
 

@@ -3,6 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${title}">Logout</title>
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom right, #1e3c72, #2a5298);
+            background-size: cover;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Login Form Container */
+        .login-container {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        /* Title Styling */
+        h1 {
+            color: #FFD700; /* Gold color for title */
+            margin-bottom: 20px;
+            font-size: 32px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            margin-top: 0; /* Ensure the title is at the top */
+        }
+
+        /* Form Styles */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: black;
+            font-size: 16px;
+        }
+
+        input:focus {
+            outline: none;
+            border: 2px solid #FFD700;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #FFD700;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 16px;
+            color: black;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        button:hover {
+            background-color: #FFC107;
+        }
+
+        /* Error Message */
+        h3 {
+            margin-top: 15px;
+            font-size: 14px;
+            color: red;
+        }
+    </style>
 </head>
 <body>
     <header>

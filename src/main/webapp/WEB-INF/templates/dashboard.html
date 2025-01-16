@@ -2,48 +2,135 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Dashboard</title>
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom right, #1e3c72, #2a5298);
+            background-size: cover;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .header img {
+            height: 40px;
+        }
+
+        .header h1 {
+            color: #FFD700; /* Gold color for title */
+            margin: 0;
+            font-size: 24px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Dashboard Content */
+        .content {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        h2 {
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        a {
+            display: block;
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 10px;
+            padding: 10px 15px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        a:hover {
+            text-decoration: underline;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            text-align: center;
+            color: white;
+            font-size: 14px;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.3);
+        }
+    </style>
 </head>
 <body>
-    <h1 th:text="${message}"></h1>
-
-    <!-- Authority-based functionality -->
-    <div th:if="${user_authority == 'ROLE_STATE'}">
-        <h2>State Admin Dashboard</h2>
-        <a href="admin/register">Register New User</a><br>
-        <a href="admin/viewAllUsers">Manage User</a><br>
+    <!-- Header -->
+    <div class="header">
+        <img src="logo.png" alt="Logo" />
+        <h1>MyTVPSS</h1>
     </div>
 
-    <div th:if="${user_authority == 'ROLE_DISTRICT'}">
-        <h2>District Admin Dashboard</h2>
-        <a href="">Function</a><br>
-        <a href="">Function</a><br>
-        
+    <!-- Dashboard Content -->
+    <div class="content">
+        <h1 th:text="${message}"></h1>
+
+        <!-- Authority-based functionality -->
+        <div th:if="${user_authority == 'ROLE_STATE'}">
+            <h2>State Admin Dashboard</h2>
+            <a href="stateProgram/programs">View School TVPSS Program Info</a>
+            <a href="admin/register">Register New User</a>
+            <a href="admin/viewAllUsers">Manage User</a>
+        </div>
+
+        <div th:if="${user_authority == 'ROLE_DISTRICT'}">
+            <h2>District Admin Dashboard</h2>
+            <a href="districtProgram/programs">View School TVPSS Program Info</a>
+            <a href="">Function</a>
+        </div>
+
+        <div th:if="${user_authority == 'ROLE_SCHOOL'}">
+            <h2>Teacher Dashboard</h2>
+            <a href="schoolProgram/programs">View School TVPSS Program Info</a>
+            <a href="recruitment/recruitmentList">Check Recruitment Form List</a>
+            <a href="event/admin/view">View Event</a>
+            <a href="event/admin/create">Create Event</a>
+        </div>
+
+        <div th:if="${user_authority == 'ROLE_STUDENT'}">
+            <h2>Student Dashboard</h2>
+            <a href="recruitment/recruitmentForm">Fill In Recruitment Form</a>
+            <a href="recruitment/myRecruitment">Check My Recruitment Form</a>
+            <a href="event/view">View Event</a>
+        </div>
+
+        <!-- Profile and Logout -->
+        <div>
+            <a href="viewProfile">View Profile</a>
+            <a href="out">Logout</a>
+        </div>
+
+        <!-- Default message if authority is unrecognized -->
+        <div th:if="${user_authority != 'ROLE_STATE' && user_authority != 'ROLE_DISTRICT' && user_authority != 'ROLE_SCHOOL' && user_authority != 'ROLE_STUDENT'}">
+            <h2>Access Denied</h2>
+            <p>Your account does not have access to this system. Please contact your teacher/supervisor to resolve the issue.</p>
+        </div>
     </div>
 
-    <div th:if="${user_authority == 'ROLE_SCHOOL'}">
-        <h2>Teacher Dashboard</h2>
-        <a href="recruitment/recruitmentList">Check Recruitment Form List</a><br>
-        <a href="event/admin/view">View Event</a><br>
-        <a href="event/admin/create">Create Event</a><br>
-        
-    </div>
-
-    <div th:if="${user_authority == 'ROLE_STUDENT'}">
-        <h2>Student Dashboard</h2>
-        <a href="recruitment/recruitmentForm">Fill In Recruitment Form</a><br>
-        <a href="recruitment/myRecruitment">Check My Recruitment Form</a><br>
-        <a href="event/view">View Event</a><br>
-        
-    </div>
-    <div>
-    	<a href="viewProfile">View Profile</a><br>
-    	<a href="out">Logout</a>
-    </div>
-
-    <!-- Default message if authority is unrecognized -->
-    <div th:if="${user_authority != 'ROLE_STATE' && user_authority != 'ROLE_DISTRICT' && user_authority != 'ROLE_SCHOOL' && user_authority != 'ROLE_STUDENT'}">
-        <h2>Access Denied</h2>
-        <p>Your account does not have access to this system. Please contact your teacher/supervisor to resolve the issue.</p>
+    <!-- Footer -->
+    <div class="footer">
+        &copy; 2025 MyTVPSS. All rights reserved.
     </div>
 </body>
 </html>
+

@@ -10,11 +10,9 @@ import com.example.repository.EventDao;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpSession;
+//import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/event")

@@ -1,7 +1,10 @@
+<!-- school-programList.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>User Management</title>
+    <meta charset="UTF-8">
+    <title>School Program Info List</title>
+    <link rel="stylesheet" href="/css/style.css"> <!-- Optional CSS -->
     <style>
         body {
             background: linear-gradient(to bottom right, #1e3c72, #2a5298);
@@ -86,41 +89,44 @@
     </style>
 </head>
 <body>
-    <h1>Admin - User Management</h1>
-
+    <h1 th:text="${message}">TV PSS Program Information</h1>
+    
+    <a th:href="@{/schoolProgram/create}"><button>Create School Program Info</button></a>
+    
+    <!-- Search Form -->
+    <form th:action="@{/schoolProgram/search}" method="get">
+        <input type="text" name="query" placeholder="Search by school code or name" />
+        <button type="submit">Search</button>
+    </form>
+    
     <table border="1">
         <thead>
             <tr>
-                <th>Email</th>
-                <th>Password</th>
-                <th>Full Name</th>
-                <th>Enabled</th>
-                <th>Actions</th>
+                <th>Code</th>
+                <th>School Name</th>
+                <th>District</th>
+                <th>Studio Level</th>
+                <th>Submission Date</th>
+                <th>Validation Date</th>
+                <th>Status</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="user : ${users}">
-                <td th:text="${user.email}"></td>
-                <td th:text="${user.password}"></td>
-                <td th:text="${user.fullname}"></td>
+            <tr th:each="school : ${schoolProgramInfo}">
+                <td th:text="${school.schoolCode}"></td>
+                <td th:text="${school.schoolName}"></td>
+                <td th:text="${school.district}"></td>
+                <td th:text="${school.studioLevel}"></td>
+                <td th:text="${school.submissionDate}"></td>
+                <td th:text="${school.validationDate}"></td>
+                <td th:text="${school.status}"></td>
                 <td>
-                    <!-- Dropdown for Enabled -->
-                    <form th:action="@{/admin/updateEnabled}" method="post" style="display:inline;">
-                        <input type="hidden" name="email" th:value="${user.email}" />
-                        <select name="enabled">
-                            <option th:value="true" th:selected="${user.enabled}">Yes</option>
-                            <option th:value="false" th:selected="${!user.enabled}">No</option>
-                        </select>
-                        <button type="submit">Update</button>
-                    </form>
-                </td>
-                <td>
-                    <!-- Delete User Button -->
-                    <form th:action="@{/admin/deleteUser}" method="post" style="display:inline;">
-                        <input type="hidden" name="email" th:value="${user.email}" />
-                        <button type="submit">Delete</button>
-                    </form>
-                </td>
+                <a th:href="@{/schoolProgram/update/{schoolCode}(schoolCode=${school.schoolCode})}">Update</a>
+            	</td>
+            </tr>
+            <tr th:if="${schoolProgramInfo.size() == 0}">
+                <td colspan="10">No results found for your search.</td>
             </tr>
         </tbody>
     </table>

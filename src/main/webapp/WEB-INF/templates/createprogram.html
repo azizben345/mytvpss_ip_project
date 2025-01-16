@@ -1,0 +1,147 @@
+<!-- createSchoolProgramForm.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create School Program Info</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #1e3c72, #2a5298);
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 20px;
+        }
+        h1, h3, h4 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        form {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 900px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="url"], textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: none;
+            background: #f4f4f4;
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #2a5298;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+        button:hover {
+            background: #1e3c72;
+        }
+        a {
+            color: #a1d4ff;
+            text-decoration: none;
+            font-size: 14px;
+            margin-top: 20px;
+            display: block;
+            text-align: center;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Create School Program Info</h1>
+    
+    <form th:action="@{/schoolProgram/create}" th:object="${school}" method="post">
+    	<h4>A: Basic Information</h4>
+        <label for="schoolName">School Name:</label>
+        <input type="text" id="schoolName" th:field="*{schoolName}" required/><br/>
+
+        <label for="schoolCode">School Code:</label>
+        <input type="text" id="schoolCode" th:field="*{schoolCode}" required/><br/>
+        
+        <label for="contactNumber">Contact Number:</label>
+        <input type="text" id="contactNumber" th:field="*{contactNumber}" required/><br/>
+        
+        <label for="district">District:</label>
+        <input type="text" id="district" th:field="*{district}" required/><br/>
+        
+        <label for="address">Address:</label>
+        <textarea id="address" th:field="*{address}" required></textarea><br/>
+        
+        <h4>Social Media:</h4>
+        <label for="channelLink">Youtube Link:</label>
+        <input type="url" id="channelLink" th:field="*{channelLink}" placeholder="https://www.example.com"/><br/>
+        
+		<h4>Tick if applicable:</h4>
+        <label for="hasLogo">Has Logo:</label>
+        <input type="checkbox" id="hasLogo" th:field="*{hasLogo}"/><br/>
+
+        <label for="isVenueAvailable">Corner/Mini Studio/TV Studio:</label>
+        <input type="checkbox" id="isVenueAvailable" th:field="*{isVenueAvailable}"/><br/>
+
+        <label for="hasInSchoolRecording">In-School Recording:</label>
+        <input type="checkbox" id="hasInSchoolRecording" th:field="*{hasInSchoolRecording}"/><br/>
+
+        <label for="isUploadedToYouTube">Uploaded on YouTube:</label>
+        <input type="checkbox" id="isUploadedToYouTube" th:field="*{isUploadedToYouTube}"/><br/>
+
+        <label for="hasInAndOutSchoolRecording">In and Out-School Recording:</label>
+        <input type="checkbox" id="hasInAndOutSchoolRecording" th:field="*{hasInAndOutSchoolRecording}"/><br/>
+
+        <label for="hasOutsideCollaboration">Collaboration with outside agencies:</label>
+        <input type="checkbox" id="hasOutsideCollaboration" th:field="*{hasOutsideCollaboration}"/><br/>
+
+        <label for="hasGreenScreen">Using 'Green Screen' Technology:</label>
+        <input type="checkbox" id="hasGreenScreen" th:field="*{hasGreenScreen}"/><br/>
+        
+        <h3>B: Studio and Equipment Information</h3>
+        
+        <h4>Studio (Click if applicable):</h4>
+        
+        <div>
+            <input type="checkbox" id="hasReadingCorner" th:field="*{hasReadingCorner}"/>
+            <label for="hasReadingCorner">Reading Corner (TV Program/Show corner/room)</label>
+        </div>
+
+        <div>
+            <input type="checkbox" id="hasEditingCorner" th:field="*{hasEditingCorner}"/>
+            <label for="hasEditingCorner">Editing Corner / room</label>
+        </div>
+        
+        <label for="studioLevel">Studio Level:</label>
+        <select id="studioLevel" th:field="*{studioLevel}">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select><br/>
+
+        <button type="submit">Create</button>
+    </form>
+
+    <a th:href="@{/schoolProgram/programs}">Back to List</a>
+</body>
+</html>
+

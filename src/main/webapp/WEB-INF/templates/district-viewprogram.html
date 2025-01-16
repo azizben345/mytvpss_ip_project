@@ -1,0 +1,94 @@
+<!-- view-programSubmission.html-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View School Program</title>
+</head>
+<body>
+    <h1>View School Program</h1>
+    <form th:object="${school}">
+    	<h4>A: Basic Information</h4>
+        <input type="hidden" th:field="*{id}" id="id"/>
+        
+        <label for="schoolName">School Name:</label>
+        <input type="text" id="schoolName" th:field="*{schoolName}" readonly/><br/>
+
+        <label for="schoolCode">School Code:</label>
+        <input type="text" id="schoolCode" th:field="*{schoolCode}" readonly/><br/>
+        
+        <label for="contactNumber">Contact Number:</label>
+        <input type="text" id="contactNumber" th:field="*{contactNumber}" readonly/><br/>
+        
+        <label for="district">District:</label>
+        <input type="text" id="district" th:field="*{district}" readonly/><br/>
+        
+        <label for="address">Address:</label>
+        <textarea id="address" th:field="*{address}" readonly></textarea><br/>
+		
+		<h4>Social Media:</h4>
+		<label for="channelLink">Channel Link:</label>
+        <input type="url" id="channelLink" th:field="*{channelLink}" placeholder="https://www.example.com" readonly/><br/>
+        
+        <h4>Tick if applicable:</h4>
+        <label for="hasLogo">Has Logo:</label>
+        <input type="checkbox" id="hasLogo" th:field="*{hasLogo}" disabled/><br/>
+
+        <label for="isVenueAvailable">Corner/Mini Studio/TV Studio:</label>
+        <input type="checkbox" id="isVenueAvailable" th:field="*{isVenueAvailable}" disabled/><br/>
+
+        <label for="hasInSchoolRecording">In-School Recording:</label>
+        <input type="checkbox" id="hasInSchoolRecording" th:field="*{hasInSchoolRecording}" disabled/><br/>
+
+        <label for="isUploadedToYouTube">Uploaded on YouTube:</label>
+        <input type="checkbox" id="isUploadedToYouTube" th:field="*{isUploadedToYouTube}" disabled/><br/>
+
+        <label for="hasInAndOutSchoolRecording">In and Out-School Recording:</label>
+        <input type="checkbox" id="hasInAndOutSchoolRecording" th:field="*{hasInAndOutSchoolRecording}" disabled/><br/>
+
+        <label for="hasOutsideCollaboration">Collaboration with outside agencies:</label>
+        <input type="checkbox" id="hasOutsideCollaboration" th:field="*{hasOutsideCollaboration}" disabled/><br/>
+
+        <label for="hasGreenScreen">Using 'Green Screen' Technology:</label>
+        <input type="checkbox" id="hasGreenScreen" th:field="*{hasGreenScreen}" disabled/><br/>
+
+        <h3>B: Studio and Equipment Information</h3>
+        
+        <h4>Studio (Click if applicable):</h4>
+        <div>
+            <input type="checkbox" id="hasReadingCorner" th:field="*{hasReadingCorner}" disabled/>
+            <label for="hasReadingCorner">Reading Corner (TV Program/Show corner/room)</label>
+        </div>
+
+        <div>
+            <input type="checkbox" id="hasEditingCorner" th:field="*{hasEditingCorner}" disabled/>
+            <label for="hasEditingCorner">Editing Corner / room</label>
+        </div>
+        
+        <label for="studioLevel">Studio Level:</label>
+        <select id="studioLevel" th:field="*{studioLevel}" disabled>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select><br/>
+
+        <!-- Buttons for Approve and Reject -->
+        <button type="button" onclick="handleApprove()">Approve</button>
+        <button type="button" onclick="handleReject()">Reject</button>
+    </form>
+
+    <a th:href="@{/districtProgram/programs}">Back to List</a>
+
+    <script>
+        function handleApprove() {
+            // Logic for approving the program
+            window.location.href = '/GreetingSpringMVC/districtProgram/approve/' + document.getElementById('id').value;
+        }
+
+        function handleReject() {
+            // Logic for rejecting the program
+            window.location.href = '/GreetingSpringMVC/districtProgram/reject/' + document.getElementById('id').value;
+        }
+    </script>
+</body>
+</html>
