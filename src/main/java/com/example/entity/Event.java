@@ -33,14 +33,17 @@ public class Event {
     
     @Column(name = "image", length = 255)
     private String image;
-
+    
+    @Column(name = "youtubeLink", length = 255)
+    private String youtubeLink; 
+    
     // Default constructor
     public Event() {
         super();
     }
 
     // Constructor with fields
-    public Event(int id, String title,String description, String startDate, String endDate, String status, String image) {
+    public Event(int id, String title,String description, String startDate, String endDate, String status, String image, String youtubeLink) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -48,6 +51,7 @@ public class Event {
         this.endDate= endDate;
         this.status = status;
         this.image = image;
+        this.youtubeLink = youtubeLink;
     }
 
     // Getters and Setters
@@ -106,4 +110,12 @@ public class Event {
     public void setImage(String image) {
         this.image = image;
     }
+    
+    public String getYoutubeLink() {
+        return youtubeLink;
+    }
+
+    public void setYoutubeLink(String youtubeLink) {
+        this.youtubeLink = youtubeLink;
+    }    
 }

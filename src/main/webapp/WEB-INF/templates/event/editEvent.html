@@ -2,37 +2,183 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Edit Event</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #003366;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            font-size: 16px;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        input[type="text"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        
+        button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        
+        .cancel-link {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 16px;
+        }
+        
+        .cancel-link a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        
+        .cancel-link a:hover {
+            text-decoration: underline;
+        }
+        
+.topbar {
+            background: #003366;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .topbar button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+        }
+
+        .topbar .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .topbar .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .topbar .topbar-left span,
+        .topbar .topbar-right span {
+            font-size: 16px;
+        }
+
+        .topbar .topbar-left button {
+            font-size: 22px;
+            color: white;
+        }
+
+        a.logout {
+            color: white;
+            text-decoration: none;
+        }    </style>
 </head>
 <body>
+<div class="topbar">
+        <div class="topbar-left">
+            <div class="topbar-left">
+            <button style="background: none; border: none; color: white;">☰</button>
+            <a th:href="@{/event/admin/view}" style="color: white; font-size: 16px;">TV PSS</a>
+        </div>
+        </div>
+        <div class="topbar-right">
+            <span>🔔</span>
+        </div>
+         <div style="display: flex; align-items: center; gap: 15px;">
+            <span>🔔</span>
+              <!-- Logout -->
+           <br><a th:href="@{/out}"  class="logout">Logout</a>
+        </div>
+    </div>
+    
+<div class="container">
     <h1>Edit Event</h1>
-    <form th:action="@{/event/edit/{id}(id=${event.id})}" th:object="${event}" method="post">
+    <form th:action="@{/event/admin/edit/{id}(id=${event.id})}" th:object="${event}" method="post">
         <label for="title">Name:</label>
         <input type="text" id="title" name="title" th:value="*{title}" required><br>
 
         <label for="description">Description:</label>
         <input type="text" id="description" name="description" th:value="*{description}" required><br>
 
-        <label for="image">Image :</label>
+        <label for="image">Image Link :</label>
         <input type="text" id="image" name="image" th:value="*{image}" required><br>
+        
+        <label for="youtubeLink">YouTube Link:</label>
+        <input type="text" id="youtubeLink" name="youtubeLink" th:value="*{youtubeLink}" required><br>
 
         <label for="startDate">Start Date:</label>
         <input type="date" id="startDate" name="startDate" th:value="*{startDate}" required><br>
         
-         <label for="endDate">End Date:</label>
-         <input type="date" id="endDate" name="endDate" th:value="*{endDate}" required><br>
-		
-		<label for="status">Event Status:</label>
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate" th:value="*{endDate}" required><br>
+        
+        <label for="status">Event Status:</label>
         <select id="status" name="status" th:value="*{status}" required>
             <option value="In Progress" th:text="#{In Progress}">In Progress</option>
             <option value="Event Have Not Start" th:text="#{Event Have Not Start}">Event Have Not Start</option>
             <option value="Event Ended" th:text="#{Event Ended}">Event Ended</option>
         </select><br>
-		
-		<!-- <label for="eventDuration">Event Participation:</label>
-		<input type="text" id="participation" name="participation" th:value="*{participation}" required><br> -->
-		
+
         <button type="submit">Update</button>
-        <a th:href="@{/event/view}">Cancel</a>
+        <a th:href="@{/event/admin/view}" class="cancel-link">Cancel</a>
     </form>
+</div>
 </body>
 </html>
