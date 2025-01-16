@@ -188,6 +188,7 @@
                         <th>Name</th>
                         <th>Description</th>
                         <th>Image</th>
+                        <th>YouTube Link</th>
                         <th>Start</th>
                         <th>End</th>
                         <th>Event Status</th>
@@ -198,7 +199,18 @@
                         <td th:text="${iterStat.index + 1}">1</td>
                         <td th:text="${event.title}"></td>
                         <td th:text="${event.description}"></td>
-                        <td th:text="${event.image}"></td>
+                        <!-- <td th:text="${event.image}"></td> -->
+                        <!-- Display Image from URL -->
+				        <td>
+                            <div th:if="${#strings.contains(event.image, 'youtube')}">
+                                <iframe width="300" height="200" th:src="'https://www.youtube.com/embed/' + ${#strings.substringAfter(event.image, 'v=')}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                            <div th:if="${#strings.contains(event.image, 'http')}">
+                                <img th:src="${event.image}" alt="Event Image" style="max-width: 300px; height: auto;">
+                            </div>
+                        </td>
+                        <!-- YOUTUBE LINK -->
+                        <td><a th:href="${event.image}" target="_blank">View YouTube</a></td>
                         <td>
                             <span th:text="${event.startDate}"></span><br>
                 
