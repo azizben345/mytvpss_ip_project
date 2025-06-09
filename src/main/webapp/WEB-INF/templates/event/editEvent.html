@@ -106,25 +106,6 @@
     </style>
 </head>
 <body>
-<div class="topbar">
-        <div class="topbar-left">
-            <div class="topbar-left">
-            <button style="background: none; border: none; color: white;">☰</button>
-            <a th:href="@{/event/admin/view}" style="color: white; font-size: 16px;">TV PSS</a>
-        </div>
-        </div>
-        <div class="topbar-right">
-            <span>🔔</span>
-        </div>
-         <div style="display: flex; align-items: center; gap: 15px;">
-            <span>🔔</span>
-              <!-- Logout -->
-           <br><a th:href="@{/out}"  class="logout">Logout</a>
-        </div>
-    </div>
-    
-<div class="container">
-
     <h1>Edit Event</h1>
     <form th:action="@{/event/admin/edit/{id}(id=${event.id})}" th:object="${event}" method="post">
         <label for="title">Name:</label>
@@ -135,10 +116,7 @@
 
         <label for="image">Image :</label>
         <input type="text" id="image" name="image" th:value="*{image}" required><br>
-		
-		<label for="youtubeLink">YouTube Link:</label>
-        <input type="text" id="youtubeLink" name="youtubeLink" th:value="*{youtubeLink}" required><br>
-        
+
         <label for="startDate">Start Date:</label>
         <input type="date" id="startDate" name="startDate" th:value="*{startDate}" required><br>
         

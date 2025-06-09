@@ -102,52 +102,12 @@
             color: white;
             font-size: 18px;
         }
-              .topbar .topbar-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .topbar .topbar-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .topbar .topbar-left span,
-        .topbar .topbar-right span {
-            font-size: 16px;
-        }
-
-        .topbar .topbar-left button {
-            font-size: 22px;
-            color: white;
-        }
-
-        a.logout {
-            color: white;
-            text-decoration: none;
-        }
-        
+        a.logout {color: white;text-decoration: none;}
     </style>
     
 </head>
 <body>
 <div class="container">
- <div class="topbar">
-        <div class="topbar-left">
-           <div class="topbar-left">
-            <button style="background: none; border: none; color: white;">☰</button>
-            <a th:href="@{/event/admin/view}" style="color: white; font-size: 16px;">TV PSS</a>
-        </div>
-        </div>
-         <div style="display: flex; align-items: center; gap: 15px;">
-            <span>🔔</span>
-              <!-- Logout -->
-           <br><a th:href="@{/out}"  class="logout">Logout</a>
-        </div>
-    </div>
-    
     <h1>Create New Event</h1>
     <form th:action="@{/event}" th:object="${event}" method="post">
         <label for="title">Name:</label>
@@ -156,12 +116,9 @@
         <label for="description">Description:</label>
         <input type="text" id="description" name="description" th:value="*{description}" required><br>
 
-        <label for="image">Image Link :</label>
-        <input type="text" id="image" name="image" th:value="*{image}" required><br>
-		 
-        <label for="youtubeLink">YouTube Link:</label>
-        <input type="text" id="youtubeLink" name="youtubeLink" th:value="*{youtubeLink}" required><br>
-        
+        <label for="image">Image :</label>
+        <input type="text" id="image" name="image" th:value="*{image}"><br>
+
         <label for="startDate">Start Date:</label>
         <input type="date" id="startDate" name="startDate" th:value="*{startDate}" required><br>
         
@@ -177,7 +134,9 @@
         </select><br>
 		
         <button type="submit">Save</button>
-        <a th:href="@{/event}">Cancel</a>
+        <a th:href="@{/dashboard}">
+		    <button type="button">Cancel - Go to Dashboard</button>
+		</a>
     </form>
 </div>
 </body>

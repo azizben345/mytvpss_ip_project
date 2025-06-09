@@ -93,8 +93,12 @@
         <p th:text="${message}">You have been logged out.</p>
     </header>
     <nav>
-        <a th:href="@{/login}">Log in again</a>
-        <a th:href="@{/}">Go to home</a>
+        <a th:href="@{/login}">
+		    <button type="button">Login</button>
+		</a>
+        <a th:href="@{/}">
+        	<button type="button">Go to home</button>
+        </a>
     </nav>
 </body>
 </html>
