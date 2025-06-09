@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	                .anyRequest().authenticated() // Require authentication for all other routes
 	            .and()
 	            	.formLogin()
-	                .loginPage("/login") // Custom login page
+	                //.loginPage("/login") // Custom login page
 	            	.usernameParameter("email")
 	                .defaultSuccessUrl("/dashboard", true) // Redirect to home after successful login
 	                .failureUrl("/login?error=true") // Redirect to login page with error
